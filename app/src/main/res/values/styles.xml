@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <string-array name="Area">
+        <item>Saddar Town</item>
+        <item>DHA</item>
+        <item>Clifton</item>
+        <item>PECHS</item>
+        <item>Tariq Road</item>
+        <item>Bahadurabad</item>
+        <item>Gulshan Iqbal</item>
+    </string-array>
+    <string-array name="City">
+        <item>Karachi</item>
+        <item>Hyderabad</item>
+        <item>Sukkur</item>
+        <item>Lahore</item>
+        <item>Islamabad</item>
+        <item>Rawalpindi</item>
+        <item>Quetta</item>
+    </string-array>
 </resources>
