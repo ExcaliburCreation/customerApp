@@ -12,5 +12,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.excaliburcreations.customerapp.HomeActivity"
     tools:showIn="@layout/app_bar_home">
-
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderListView"
+        android:stackFromBottom="true"
+        android:divider="@android:color/transparent"
+        android:transcriptMode="alwaysScroll"/>
 </RelativeLayout>
