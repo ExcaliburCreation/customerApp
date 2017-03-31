@@ -13,11 +13,10 @@ public class ClassUserInfo {
     String area;
     String city;
 
-    public ClassUserInfo(String firstName, String lastName, String email,String password,String address, String area, String city){
+    public ClassUserInfo(String firstName, String lastName, String email,String address, String area, String city){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
         this.address = address;
         this.area = area;
         this.city = city;
@@ -47,10 +46,6 @@ public class ClassUserInfo {
         return firstName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -75,7 +70,4 @@ public class ClassUserInfo {
         this.city = city;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
