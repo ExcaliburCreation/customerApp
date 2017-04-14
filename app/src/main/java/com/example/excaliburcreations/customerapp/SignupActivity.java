@@ -57,14 +57,6 @@ public class SignupActivity extends AppCompatActivity {
         editAddress = (EditText) findViewById(R.id.EditAdd);
         spinItemArea = (Spinner) findViewById(R.id.spinnerArea);
         spinItemCity = (Spinner) findViewById(R.id.spinnerCity);
-        BtnAddloc = (Button) findViewById(R.id.BtnAddloc);
-        BtnAddloc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
 
         BtnSignup = (Button) findViewById(R.id.BtnSignUp);
         mAuth = FirebaseAuth.getInstance();

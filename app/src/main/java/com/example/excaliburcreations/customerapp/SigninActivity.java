@@ -1,9 +1,9 @@
 package com.example.excaliburcreations.customerapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SigninActivity extends AppCompatActivity {
@@ -35,29 +34,30 @@ public class SigninActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = mFirebaseDatabase.getInstance();
 
+
         EditUserText = (EditText) findViewById(R.id.Edit_userName);
         EditPassText = (EditText) findViewById(R.id.Edit_userPassword);
-        BtnLogin  = (Button) findViewById(R.id.Btn_login);
+        BtnLogin = (Button) findViewById(R.id.Btn_login);
         TextSignup = (TextView) findViewById(R.id.TextSignup);
 
 
-        //attaching a authentication listener
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
+//        //attaching a authentication listener
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    // User is signed in
+//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                } else {
+//                    // User is signed out
+//                    Log.d(TAG, "onAuthStateChanged:signed_out");
+//                }
+//                // ...
+//            }
+//        };
+//    }
     }
-
     //sign in with existing user
     public void Signin(View view){
         mFirebaseAuth.signInWithEmailAndPassword(EditUserText.getText().toString(),EditPassText.getText().toString())
@@ -78,7 +78,7 @@ public class SigninActivity extends AppCompatActivity {
 
                         else{
                             Toast.makeText(SigninActivity.this, "Signed in", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(SigninActivity.this, MapsActivity.class);
                             intent.putExtra("username",EditUserText.getText().toString());
                             startActivity(intent);
 
@@ -87,21 +87,32 @@ public class SigninActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+
+
     }
     public void Signup(View view){
         Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthListener);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mFirebaseAuth.addAuthStateListener(mAuthListener);
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if(mAuthListener!= null) {
+//            mFirebaseAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mFirebaseAuth.removeAuthStateListener(mAuthListener);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mFirebaseAuth.addAuthStateListener(mAuthListener);
+//    }
+
 }
