@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ClassCollectInfo classCollectInfo = new ClassCollectInfo();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = mFirebaseDatabase.getInstance();
 
