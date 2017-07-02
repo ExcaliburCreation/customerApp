@@ -95,24 +95,4 @@ public class SigninActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mFirebaseAuth.addAuthStateListener(mAuthListener);
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if(mAuthListener!= null) {
-//            mFirebaseAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        mFirebaseAuth.addAuthStateListener(mAuthListener);
-//    }
-
 }
