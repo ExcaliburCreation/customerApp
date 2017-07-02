@@ -129,6 +129,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/EditOwnerNTN"/>
         </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:id="@+id/BtnForward"
+            android:layout_gravity="right"/>
     </LinearLayout>
 
 </ScrollView>

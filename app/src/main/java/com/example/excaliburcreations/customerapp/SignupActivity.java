@@ -48,7 +48,7 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
     EditText editAddress;
     Spinner spinItemCity;
     Spinner spinItemArea;
-    CustomViewPager customViewPager;
+    public CustomViewPager customViewPager;
     Button btnNext;
     Button btnTrackMe;
 
@@ -60,6 +60,7 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
     public Fragment mFragment;
     FragmnetLocInfo mFragmnetLocInfo;
     public FragmentManager mFragmentManager;
+    FragmentUserInfo mFragmentUserInfo;
 
     //entry point of a firebase
     private FirebaseDatabase mFirebaseDatabase;
@@ -78,6 +79,8 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
 
     Bundle bundle;
     Intent intent;
+    public int currentItem = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,15 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(customViewPager);
 
+//        View inflatedView = getLayoutInflater().inflate(R.layout.fragment_fragment_user_info,null);
+//        Button b = (Button) inflatedView.findViewById(R.id.BtnForward);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("access","have access");
+//                Toast.makeText(SignupActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
@@ -193,6 +205,14 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
     public void jumpToPage(View view) {
         customViewPager.setCurrentItem(customViewPager.getCurrentItem() + 1, true);
 
+//        customViewPager.setCurrentItem(currentItem, true);
+//        if(ClassCollectInfo.area != null){
+//            currentItem =customViewPager.getCurrentItem() + 1;
+//        }
+//        else{
+//            Toast.makeText(this, "empty", Toast.LENGTH_SHORT).show();
+//        }
+
         if(customViewPager.getCurrentItem() == 2){
             btnNext.setVisibility(View.INVISIBLE);
             btnTrackMe.setVisibility(View.VISIBLE);
@@ -208,10 +228,6 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
 //            selectedIndex++;
 //
 //        }
-    }
-    public void setButton(){
-       btnNext.setVisibility(View.INVISIBLE);
-        btnTrackMe.setVisibility(View.VISIBLE);
     }
 
 
