@@ -7,6 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="FormEditText">
+
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">7dp</item>
+    </style>
 
     <string-array name="Area">
         <item>Saddar Town</item>
@@ -16,15 +21,6 @@
         <item>Tariq Road</item>
         <item>Bahadurabad</item>
         <item>Gulshan Iqbal</item>
-    </string-array>
-    <string-array name="City">
-        <item>Karachi</item>
-        <item>Hyderabad</item>
-        <item>Sukkur</item>
-        <item>Lahore</item>
-        <item>Islamabad</item>
-        <item>Rawalpindi</item>
-        <item>Quetta</item>
     </string-array>
 
     <style name="AppTheme.NoActionBar">

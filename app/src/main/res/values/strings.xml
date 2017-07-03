@@ -17,19 +17,33 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string-array name="AccNature">
-        <item>Current</item>
-        <item>Savings</item>
-        <item>Patnership</item>
+    <string name="request_text">Request for Account Opening</string>
+    <string-array name="Time">
+        <item>9:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
     </string-array>
 
-    <string-array name="Currency">
-        <item>Dollars</item>
-        <item>Saudi Riyal</item>
-        <item>PKR</item>
-        <item>YURO</item>
-        <item>YEN</item>
-</string-array>
+    <string-array name="Country">
+        <item>Pakistan</item>
+    </string-array>
+
+    <string-array name="City">
+        <item>Karachi</item>
+        <item>Hyderabad</item>
+        <item>Sukkur</item>
+        <item>MirpurKhas</item>
+        <item>Islamabad</item>
+        <item>Faisalabad</item>
+        <item>Rawalpindi</item>
+        <item>Lahore</item>
+    </string-array>
 
 </resources>
