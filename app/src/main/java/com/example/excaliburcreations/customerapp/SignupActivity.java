@@ -1,15 +1,17 @@
 package com.example.excaliburcreations.customerapp;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.excaliburcreations.customerapp.databinding.formBind;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity /*implements Serializable, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener */ {
     private static final String TAG = "SIGN_UP";
@@ -17,15 +19,26 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
     private formBind formBind;
 
 
-    Button btnNext;
-    Button btnTrackMe;
+    //entry point of a firebase
+    private FirebaseDatabase mFirebaseDatabase;
+    //referencing a specific database
+    private DatabaseReference mDatabaseReference;
+      /*
+    * Authentication
+    * */
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListner;
 
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         formBind = DataBindingUtil.setContentView(this,R.layout.activity_signup);
+
+        //main access point of our database
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        //giving reference till the child node of the firebase database.
+        mDatabaseReference = mFirebaseDatabase.getReference().child("AccountRequest");
 
         formBind.eCompName.addTextChangedListener(watcher);
         formBind.ePersonName.addTextChangedListener(watcher);
@@ -53,6 +66,25 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
                 formBind.eTime.getSelectedItem().toString();
                 formBind.eComments.getText().toString();
                 formBind.eCountry.getSelectedItem().toString();
+
+                ClassUserInfo classUserInfo = new ClassUserInfo(formBind.eCompName.getText().toString(),formBind.ePersonName.getText().toString(),
+                                                    formBind.ePersonDes.getText().toString(),formBind.eBusinessDes.getText().toString(),
+                                                    formBind.eAddress.getText().toString(),formBind.eCellno.getText().toString(),
+                                                    formBind.eCity.getSelectedItem().toString(),formBind.eTime.getSelectedItem().toString(),
+                                                    formBind.eComments.getText().toString());
+                            mDatabaseReference.push().setValue(classUserInfo);
+                formBind.eCompName.setText("");
+                formBind.ePersonName.setText("");
+                formBind.ePersonDes.setText("");
+                formBind.eBusinessDes.setText("");
+                formBind.eAddress.setText("");
+                formBind.eCellno.setText("");
+                //formBind.eCity.setText("");
+               // formBind.eTime.setText("");
+                formBind.eComments.setText("");
+                //formBind.eCountry.setText("");
+                Toast.makeText(SignupActivity.this, "Request successfull", Toast.LENGTH_SHORT).show();
+
             }
         });
 

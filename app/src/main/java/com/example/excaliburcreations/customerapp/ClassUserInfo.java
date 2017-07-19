@@ -5,69 +5,63 @@ package com.example.excaliburcreations.customerapp;
  */
 
 public class ClassUserInfo {
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    String address;
-    String area;
+    String companyName;
+    String personName;
+    String personDes;
+    String businessDesp;
+    String cellNo;
     String city;
+    String time;
+    String comments;
+    String country;
 
-    public ClassUserInfo(String firstName, String lastName, String email,String address, String area, String city){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.area = area;
+    public ClassUserInfo( String companyName,String personName,String personDes,String businessDesp,String cellNo,
+            String city,String time,String comments,String country){
+        this.companyName = companyName;
+        this.personName = personName;
+        this.personDes  = personDes;
+        this.businessDesp = businessDesp;
+        this.cellNo = cellNo;
         this.city = city;
+        this.time = time;
+        this.comments = comments;
+        this.country = country;
     }
 
     public String getCity() {
         return city;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getBusinessDesp() {
+        return businessDesp;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCellNo() {
+        return cellNo;
     }
 
-    public String getArea() {
-        return area;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getComments() {
+        return comments;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getCountry() {
+        return country;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPersonDes() {
+        return personDes;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getPersonName() {
+        return personName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public String getTime() {
+        return time;
     }
 
 }
