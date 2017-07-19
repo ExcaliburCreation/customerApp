@@ -68,10 +68,9 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
                 formBind.eCountry.getSelectedItem().toString();
 
                 ClassUserInfo classUserInfo = new ClassUserInfo(formBind.eCompName.getText().toString(),formBind.ePersonName.getText().toString(),
-                                                    formBind.ePersonDes.getText().toString(),formBind.eBusinessDes.getText().toString(),
-                                                    formBind.eAddress.getText().toString(),formBind.eCellno.getText().toString(),
-                                                    formBind.eCity.getSelectedItem().toString(),formBind.eTime.getSelectedItem().toString(),
-                                                    formBind.eComments.getText().toString());
+                                                formBind.ePersonDes.getText().toString(),formBind.eBusinessDes.getText().toString(),
+                                                formBind.eCellno.getText().toString(),formBind.eCity.getSelectedItem().toString(),formBind.eTime.getSelectedItem().toString(),
+                                                formBind.eComments.getText().toString(),formBind.eCountry.getSelectedItem().toString(),formBind.eAddress.getText().toString());
                             mDatabaseReference.push().setValue(classUserInfo);
                 formBind.eCompName.setText("");
                 formBind.ePersonName.setText("");

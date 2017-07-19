@@ -14,9 +14,10 @@ public class ClassUserInfo {
     String time;
     String comments;
     String country;
+    String address;
 
     public ClassUserInfo( String companyName,String personName,String personDes,String businessDesp,String cellNo,
-            String city,String time,String comments,String country){
+            String city,String time,String comments,String country,String address){
         this.companyName = companyName;
         this.personName = personName;
         this.personDes  = personDes;
@@ -26,6 +27,7 @@ public class ClassUserInfo {
         this.time = time;
         this.comments = comments;
         this.country = country;
+        this.address = address;
     }
 
     public String getCity() {
@@ -64,4 +66,7 @@ public class ClassUserInfo {
         return time;
     }
 
+    public String getAddress() {
+        return address;
+    }
 }
