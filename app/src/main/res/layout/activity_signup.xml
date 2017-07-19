@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data class = "formBind"/>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -44,7 +46,7 @@
             android:layout_height="wrap_content"
             style="@style/FormEditText"
             android:id="@+id/eCompName"
-            android:ems="10"
+            android:maxEms="25"
             android:background="@drawable/rounded_corner"
             android:inputType="text"/>
         </LinearLayout>
@@ -62,6 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/ePersonName"
+                android:maxEms="25"
+                android:inputType="text"
                 android:background="@drawable/rounded_corner"
                 style="@style/FormEditText"/>
         </LinearLayout>
@@ -80,7 +84,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ePersonDes"
                 android:background="@drawable/rounded_corner"
-                style="@style/FormEditText"/>
+                style="@style/FormEditText"
+                android:maxEms="10"
+                android:inputType="text"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,7 +103,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/eCellno"
                 android:background="@drawable/rounded_corner"
-                style="@style/FormEditText"/>
+                style="@style/FormEditText"
+                android:maxEms="11"
+                android:inputType="number"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,6 +156,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/eAddress"
+                android:maxEms="40"
+                android:inputType="textPostalAddress"
                 android:background="@drawable/rounded_corner"
                 style="@style/FormEditText"/>
         </LinearLayout>
@@ -165,6 +175,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/eBusinessDes"
+                android:maxEms="100"
+                android:inputType="textShortMessage"
                 android:background="@drawable/rounded_corner"
                 style="@style/FormEditText"/>
         </LinearLayout>
@@ -182,6 +194,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/eComments"
+                android:maxEms="100"
+                android:inputType="textShortMessage"
                 android:background="@drawable/rounded_corner"
                 style="@style/FormEditText"/>
         </LinearLayout>
@@ -210,6 +224,7 @@
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/eCheckbox"
                 android:text="I Agree to the Terms of use and Privacy Policy"/>
         </LinearLayout>
         <LinearLayout
@@ -221,9 +236,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="send"
-                android:id="@+id/bSend"/>
+                android:id="@+id/bSend"
+                android:enabled="false"/>
         </LinearLayout>
 
     </LinearLayout>
     </ScrollView>
 </RelativeLayout>
+</layout>
