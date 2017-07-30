@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,8 +38,9 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
 
         //main access point of our database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("Orders");
         //giving reference till the child node of the firebase database.
-        mDatabaseReference = mFirebaseDatabase.getReference().child("AccountRequest");
+       // mDatabaseReference = mFirebaseDatabase.getReference().child("AccountRequest");
 
         formBind.eCompName.addTextChangedListener(watcher);
         formBind.ePersonName.addTextChangedListener(watcher);
@@ -56,33 +58,39 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
         formBind.bSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                formBind.eCompName.getText().toString();
-                formBind.ePersonName.getText().toString();
-                formBind.ePersonDes.getText().toString();
-                formBind.eBusinessDes.getText().toString();
-                formBind.eAddress.getText().toString();
-                formBind.eCellno.getText().toString();
-                formBind.eCity.getSelectedItem().toString();
-                formBind.eTime.getSelectedItem().toString();
-                formBind.eComments.getText().toString();
-                formBind.eCountry.getSelectedItem().toString();
+               ClassOrder classOrder = new ClassOrder("Karachi","Saddar","9:00","abc house, 123 street, xyz city","0312345678","not accepted","items");
+                Log.d("connectiontest",mDatabaseReference.toString());
+                mDatabaseReference.push().setValue(classOrder);
+                Log.d("connectiontest","send successfully");
+//                formBind.eCompName.getText().toString();
+//                formBind.ePersonName.getText().toString();
+//                formBind.ePersonDes.getText().toString();
+//                formBind.eBusinessDes.getText().toString();
+//                formBind.eAddress.getText().toString();
+//                formBind.eCellno.getText().toString();
+//                formBind.eCity.getSelectedItem().toString();
+//                formBind.eTime.getSelectedItem().toString();
+//                formBind.eComments.getText().toString();
+//                formBind.eCountry.getSelectedItem().toString();
 
-                ClassUserInfo classUserInfo = new ClassUserInfo(formBind.eCompName.getText().toString(),formBind.ePersonName.getText().toString(),
-                                                formBind.ePersonDes.getText().toString(),formBind.eBusinessDes.getText().toString(),
-                                                formBind.eCellno.getText().toString(),formBind.eCity.getSelectedItem().toString(),formBind.eTime.getSelectedItem().toString(),
-                                                formBind.eComments.getText().toString(),formBind.eCountry.getSelectedItem().toString(),formBind.eAddress.getText().toString());
-                            mDatabaseReference.push().setValue(classUserInfo);
-                formBind.eCompName.setText("");
-                formBind.ePersonName.setText("");
-                formBind.ePersonDes.setText("");
-                formBind.eBusinessDes.setText("");
-                formBind.eAddress.setText("");
-                formBind.eCellno.setText("");
-                //formBind.eCity.setText("");
-               // formBind.eTime.setText("");
-                formBind.eComments.setText("");
-                //formBind.eCountry.setText("");
+//                ClassUserInfo classUserInfo = new ClassUserInfo(formBind.eCompName.getText().toString(),formBind.ePersonName.getText().toString(),
+//                                                formBind.ePersonDes.getText().toString(),formBind.eBusinessDes.getText().toString(),
+//                                                formBind.eCellno.getText().toString(),formBind.eCity.getSelectedItem().toString(),formBind.eTime.getSelectedItem().toString(),
+//                                                formBind.eComments.getText().toString(),formBind.eCountry.getSelectedItem().toString(),formBind.eAddress.getText().toString());
+//                            mDatabaseReference.push().setValue(classUserInfo);
+//                formBind.eCompName.setText("");
+//                formBind.ePersonName.setText("");
+//                formBind.ePersonDes.setText("");
+//                formBind.eBusinessDes.setText("");
+//                formBind.eAddress.setText("");
+//                formBind.eCellno.setText("");
+//                //formBind.eCity.setText("");
+//               // formBind.eTime.setText("");
+//                formBind.eComments.setText("");
+//                //formBind.eCountry.setText("");
                 Toast.makeText(SignupActivity.this, "Request successfull", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
+//                startActivity(intent);
 
             }
         });

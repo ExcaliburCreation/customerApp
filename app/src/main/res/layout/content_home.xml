@@ -14,9 +14,11 @@
     tools:showIn="@layout/app_bar_home">
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/orderListView"
+        android:layout_height="match_parent"
+        android:id="@+id/orderListView"/>
+        <!--
         android:stackFromBottom="true"
         android:divider="@android:color/transparent"
-        android:transcriptMode="alwaysScroll"/>
+        android:transcriptMode="alwaysScroll"-->
+
 </RelativeLayout>

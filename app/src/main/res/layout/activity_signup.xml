@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:text="send"
                 android:id="@+id/bSend"
-                android:enabled="false"/>
+                android:enabled="true"/>
         </LinearLayout>
 
     </LinearLayout>

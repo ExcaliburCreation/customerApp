@@ -6,15 +6,16 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
 /**
- * Created by dell pc on 20-Jul-17.
+ * Created by dell pc on 29-Jul-17.
  */
 
-public class AdapterClassUserInfo extends ArrayAdapter<ClassUserInfo> {
-    public AdapterClassUserInfo(Context context, int resource, List<ClassUserInfo> objects) {
+public class AdapterOrder extends ArrayAdapter<ClassOrder> {
+    public AdapterOrder(Context context, int resource, List<ClassOrder> objects) {
         super(context, resource, objects);
     }
 
@@ -24,8 +25,12 @@ public class AdapterClassUserInfo extends ArrayAdapter<ClassUserInfo> {
         if (convertView == null){
             convertView = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.customorder,parent,false);
         }
-        ClassUserInfo classUserInfo = getItem(position);
+        TextView tOrderArea = (TextView) convertView.findViewById(R.id.tArea);
+        TextView tOrderTime = (TextView) convertView.findViewById(R.id.tTime);
+        ClassOrder classOrder = getItem(position);
 
+        tOrderArea.setText(classOrder.getContactno());
+        tOrderTime.setText(classOrder.getTime());
         return convertView;
     }
 }

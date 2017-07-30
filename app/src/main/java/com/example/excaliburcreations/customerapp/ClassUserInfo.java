@@ -16,7 +16,9 @@ public class ClassUserInfo {
     String country;
     String address;
 
-    public ClassUserInfo( String companyName,String personName,String personDes,String businessDesp,String cellNo,
+
+
+        public ClassUserInfo( String companyName,String personName,String personDes,String businessDesp,String cellNo,
             String city,String time,String comments,String country,String address){
         this.companyName = companyName;
         this.personName = personName;
