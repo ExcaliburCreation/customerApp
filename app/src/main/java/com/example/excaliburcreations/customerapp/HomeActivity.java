@@ -1,6 +1,10 @@
 package com.example.excaliburcreations.customerapp;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,7 +17,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,10 +41,30 @@ public class HomeActivity extends AppCompatActivity
 
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
+    DatabaseReference sDatabaseReference;
     private ChildEventListener mChildEventListener;
+    private ChildEventListener sChildEventListener;
     private AdapterOrder mAdapterOrder;
     public ListView mListView;
     public String currentDateandTime;
+    //global variable for firebase obj
+    ClassOrder classOrder;
+    //to get the particular item position
+    ClassOrder itemPos;
+
+    //Dialog
+    Dialog dialog;
+    final Context context = this;
+
+
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    public static final String Phone = "phoneKey";
+    public static final String Email = "emailKey";
+    public final String sName = ClassProfileInfo.name;
+    SharedPreferences prefs;
+    String myVariable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +88,22 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+
+
+        //getting auth key
+//        Intent intent = getIntent();
+//        final String authKey = intent.getStringExtra("username");
+        //final String myKey = authKey;
+ //       Log.d("myvariable",authKey);
 
 
 
         //mywork
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("Orders");
+       // sDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(authKey);
         mListView = (ListView) findViewById(R.id.orderListView);
 
         //setting current time and date.
@@ -75,13 +113,16 @@ public class HomeActivity extends AppCompatActivity
         //initializing activity textview and its adapter
 
 
-        List<ClassOrder> classOrders = new ArrayList<>();
+        final List<ClassOrder> classOrders = new ArrayList<>();
         Log.d("showdata",classOrders.toString());
         mAdapterOrder = new AdapterOrder(this, R.layout.customorder,classOrders);
         Log.d("showdata",mAdapterOrder.toString());
         mListView.setAdapter(mAdapterOrder);
         Log.d("showdata","data setted");
 
+        //creating a temprory list for items
+        final ArrayList<String> arrayList = new ArrayList<String>();
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
 
         Log.d("showdata","attaching childeventlistner");
         if(mChildEventListener == null) {
@@ -89,8 +130,13 @@ public class HomeActivity extends AppCompatActivity
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Log.d("showdata", "child added is working");
-                    ClassOrder classOrder = dataSnapshot.getValue(ClassOrder.class);
+                    classOrder = dataSnapshot.getValue(ClassOrder.class);
                     mAdapterOrder.add(classOrder);
+
+
+                    //setting temporary lists
+//                    arrayList.add(itemPos.getItem());
+
 
                     Log.d("showdata", classOrder.toString());
 
@@ -120,21 +166,102 @@ public class HomeActivity extends AppCompatActivity
 
             mDatabaseReference.addChildEventListener(mChildEventListener);
         }
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                ClassOrder classOrder = dataSnapshot.getValue(ClassOrder.class);
+
+//        if(sChildEventListener == null) {
+//            sChildEventListener = new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                    Log.d("showdata", "child added is working");
+//                    classOrder = dataSnapshot.getValue(ClassOrder.class);
+//                    Toast.makeText(context, classOrder.getConsigneeName(), Toast.LENGTH_SHORT).show();
+//                    Log.d("showdata",classOrder.getConsigneeName());
 //
-//            }
+//                }
 //
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w("showdata", "loadPost:onCancelled", databaseError.toException());
-//                // ...
-//            }
-//        };
-//        mDatabaseReference.addValueEventListener(valueEventListener);
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            };
+//
+//            sDatabaseReference.addChildEventListener(sChildEventListener);
+//        }
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                classOrder = classOrders.get(position);
+                Log.d("checkingpos",classOrder.toString());
+                Log.d("showdata","attaching childeventlistner");
+
+                            //setting temporary lists
+                            arrayList.add(classOrder.getItem());
+                            Log.d("checkingpos",classOrder.getItem().toString());
+
+
+                            Log.d("showdata", classOrder.toString());
+
+                            mListView.setAdapter(mAdapterOrder);
+
+
+
+                dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_layout);
+
+
+                Button dBDismiss = (Button) dialog.findViewById(R.id.bDismiss);
+                Button dBDeclilne = (Button) dialog.findViewById(R.id.bDecline);
+                Button dBGO = (Button) dialog.findViewById(R.id.bGo);
+
+                ListView dListview = (ListView) dialog.findViewById(R.id.dialog_listview);
+                dListview.setAdapter(arrayAdapter);
+
+                dBDismiss.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
+
+
+            }
+        });
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        myVariable = prefs.getString(Name, sName);
+
+
+            //Navigation View
+            NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+            mNavigationView.setNavigationItemSelectedListener(this);
+            View header=mNavigationView.getHeaderView(0);
+
+            TextView name = (TextView) header.findViewById(R.id.tUsername);
+            name.setText(myVariable);
+            Toast.makeText(context, myVariable, Toast.LENGTH_SHORT).show();
+
+
     }
 
     @Override
@@ -146,6 +273,51 @@ public class HomeActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Name, sName);
+        editor.apply();
+        editor.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Name, sName);
+        editor.apply();
+        editor.commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Name, sName);
+        editor.apply();
+        editor.commit();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        prefs = getSharedPreferences(MyPREFERENCES, 0);
+        myVariable = prefs.getString(Name, sName);
+    }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        prefs = getSharedPreferences(MyPREFERENCES, 0);
+//        myVariable = prefs.getString(Name, sName);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,7 +333,7 @@ public class HomeActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //noinspection SimplifiableIfStatement(
         if (id == R.id.action_settings) {
             return true;
         }
@@ -169,7 +341,7 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

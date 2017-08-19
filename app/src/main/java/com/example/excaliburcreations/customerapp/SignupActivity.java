@@ -58,7 +58,7 @@ public class SignupActivity extends AppCompatActivity /*implements Serializable,
         formBind.bSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               ClassOrder classOrder = new ClassOrder("Karachi","Saddar","9:00","abc house, 123 street, xyz city","0312345678","not accepted","items");
+               ClassOrder classOrder = new ClassOrder("Karachi","Saddar","9:00","abc house, 123 street, xyz city","0312345678","not accepted","items","Ibad","COD","2000/-","");
                 Log.d("connectiontest",mDatabaseReference.toString());
                 mDatabaseReference.push().setValue(classOrder);
                 Log.d("connectiontest","send successfully");

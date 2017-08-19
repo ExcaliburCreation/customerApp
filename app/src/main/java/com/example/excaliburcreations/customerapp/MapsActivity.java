@@ -96,11 +96,10 @@ public class MapsActivity extends AppCompatActivity implements Serializable, OnM
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String authKey = getIntent().getStringExtra("username");
                 Intent intent = new Intent(MapsActivity.this, HomeActivity.class);
+                //intent.putExtra("username",authKey);
                 startActivity(intent);
-
-
             }
         });
 

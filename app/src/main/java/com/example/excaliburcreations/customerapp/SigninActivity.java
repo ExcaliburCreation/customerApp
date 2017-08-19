@@ -15,17 +15,27 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SigninActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String MYTAG = "SigninActivity";
     EditText EditUserText;
     EditText EditPassText;
     Button BtnLogin;
     TextView TextSignup;
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
+    private ChildEventListener mChildEventListener;
+    private ClassOrder classOrder;
+    private FirebaseUser mFirebaseUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +43,10 @@ public class SigninActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = mFirebaseDatabase.getInstance();
+        //main access point of our database
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+
 
 
         EditUserText = (EditText) findViewById(R.id.Edit_userName);
@@ -64,14 +78,51 @@ public class SigninActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        Log.d(MYTAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        mDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid());
+                        Log.d("useruid",mFirebaseAuth.getCurrentUser().getUid());
+//                            ClassOrder classOrder = new ClassOrder("Karachi","Saddar","9:00","abc house, 123 street, xyz city","0312345678","not accepted","items","Ibad","COD","2000/-","");
+//                            Log.d("connectiontest",mDatabaseReference.toString());
+//                            mDatabaseReference.push().setValue(classOrder);
+                        // if(mChildEventListener == null) {
+                        mChildEventListener = new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                Log.d("usertest", "child added is working");
+                                classOrder = dataSnapshot.getValue(ClassOrder.class);
+                                Log.d("usertest", classOrder.toString());
+                                Log.d("usertest", classOrder.consigneeName);
+                                ClassProfileInfo.name = classOrder.consigneeName;
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        };
+                        mDatabaseReference.addChildEventListener(mChildEventListener);
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
 
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Log.w(MYTAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(SigninActivity.this,"User not exists",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -79,17 +130,18 @@ public class SigninActivity extends AppCompatActivity {
                         else{
                             Toast.makeText(SigninActivity.this, "Signed in", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SigninActivity.this, MapsActivity.class);
-                            intent.putExtra("username",EditUserText.getText().toString());
+//                            intent.putExtra("username",mFirebaseAuth.getCurrentUser().getUid());
+//                            Log.d("idtest",mFirebaseAuth.getCurrentUser().getUid());
                             startActivity(intent);
-
-                        }
+                            }
+                            Log.d("usertest","notworking");
+                     //   }
 
                         // ...
                     }
                 });
-
-
     }
+
     public void Signup(View view){
         Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
         startActivity(intent);

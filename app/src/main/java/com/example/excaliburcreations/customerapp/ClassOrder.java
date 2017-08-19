@@ -12,13 +12,18 @@ public class ClassOrder {
     String contactno;
     String status;
     String item ;
+    String consigneeName;
+    String payMethod;
+    String amount;
+    String comments;
 
 
     public ClassOrder(){
 
     }
 
-    public ClassOrder(String city, String area, String time, String address, String contactno, String status, String item ){
+    public ClassOrder(String city, String area, String time, String address, String contactno, String status,
+                      String item, String consigneeName, String payMethod, String amount, String comments ){
         this.city = city;
         this.area = area;
         this.time = time;
@@ -26,6 +31,11 @@ public class ClassOrder {
         this.contactno = contactno;
         this.status = status;
         this.item = item;
+        this.consigneeName = consigneeName;
+        this.payMethod = payMethod;
+        this.amount = amount;
+        this.comments = comments;
+
     }
 
     public String getContactno() {
@@ -55,4 +65,24 @@ public class ClassOrder {
     public String getItem() {
         return item;
     }
+
+    public String getConsigneeName() {
+        return consigneeName;
+    }
+
+    public String getPayMethod() {
+        return payMethod;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+
+
+
 }
