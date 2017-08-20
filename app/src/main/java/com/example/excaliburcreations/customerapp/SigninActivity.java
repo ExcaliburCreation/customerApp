@@ -17,8 +17,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -79,43 +77,43 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(MYTAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-                        mDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid());
+//                        mDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid());
                         Log.d("useruid",mFirebaseAuth.getCurrentUser().getUid());
 //                            ClassOrder classOrder = new ClassOrder("Karachi","Saddar","9:00","abc house, 123 street, xyz city","0312345678","not accepted","items","Ibad","COD","2000/-","");
 //                            Log.d("connectiontest",mDatabaseReference.toString());
 //                            mDatabaseReference.push().setValue(classOrder);
                         // if(mChildEventListener == null) {
-                        mChildEventListener = new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                Log.d("usertest", "child added is working");
-                                classOrder = dataSnapshot.getValue(ClassOrder.class);
-                                Log.d("usertest", classOrder.toString());
-                                Log.d("usertest", classOrder.consigneeName);
-                                ClassProfileInfo.name = classOrder.consigneeName;
-                            }
-
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                            }
-
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                            }
-
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        };
-                        mDatabaseReference.addChildEventListener(mChildEventListener);
+//                        mChildEventListener = new ChildEventListener() {
+//                            @Override
+//                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                                Log.d("usertest", "child added is working");
+//                                classOrder = dataSnapshot.getValue(ClassOrder.class);
+//                                Log.d("usertest", classOrder.toString());
+//                                Log.d("usertest", classOrder.consigneeName);
+//                                ClassProfileInfo.name = classOrder.consigneeName;
+//                            }
+//
+//                            @Override
+//                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        };
+//                        mDatabaseReference.addChildEventListener(mChildEventListener);
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the

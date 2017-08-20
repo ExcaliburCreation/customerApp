@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -25,6 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +41,9 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //authenticating the state change
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
     DatabaseReference sDatabaseReference;
@@ -55,6 +60,9 @@ public class HomeActivity extends AppCompatActivity
     //Dialog
     Dialog dialog;
     final Context context = this;
+
+    //variables
+    public TextView name;
 
 
 
@@ -101,10 +109,19 @@ public class HomeActivity extends AppCompatActivity
 
 
         //mywork
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("Orders");
        // sDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(authKey);
         mListView = (ListView) findViewById(R.id.orderListView);
+
+        //Navigation View
+        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        View header=mNavigationView.getHeaderView(0);
+
+        name = (TextView) header.findViewById(R.id.tUsername);
 
         //setting current time and date.
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy KK:mm");
@@ -167,41 +184,65 @@ public class HomeActivity extends AppCompatActivity
             mDatabaseReference.addChildEventListener(mChildEventListener);
         }
 
-//        if(sChildEventListener == null) {
-//            sChildEventListener = new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                    Log.d("showdata", "child added is working");
-//                    classOrder = dataSnapshot.getValue(ClassOrder.class);
-//                    Toast.makeText(context, classOrder.getConsigneeName(), Toast.LENGTH_SHORT).show();
-//                    Log.d("showdata",classOrder.getConsigneeName());
-//
-//                }
-//
-//                @Override
-//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            };
-//
-//            sDatabaseReference.addChildEventListener(sChildEventListener);
-//        }
+        //attaching auth listener to get uid
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null) {
+                    //user is signed in
+                    Toast.makeText(context, "user is signed in", Toast.LENGTH_SHORT).show();
+                    Log.d("myuserid",mFirebaseAuth.getCurrentUser().getUid());
+                    sDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid());
+
+                    if(sChildEventListener == null) {
+                        sChildEventListener = new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                Log.d("showdata", "child added is working");
+                                classOrder = dataSnapshot.getValue(ClassOrder.class);
+                                Toast.makeText(context, classOrder.getConsigneeName(), Toast.LENGTH_SHORT).show();
+                                Log.d("showdata",classOrder.getConsigneeName());
+                                ClassProfileInfo.name = classOrder.getConsigneeName();
+                                name.setText(ClassProfileInfo.name);
+                                Log.d("uservar",ClassProfileInfo.name);
+
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        };
+
+                        sDatabaseReference.addChildEventListener(sChildEventListener);
+                    }
+
+                    //Toast.makeText(MainActivity.this, "You're Signed in Welcome to the Friendly Chat App", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    //user is signed out
+                    Toast.makeText(context, "not sign in", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        };
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -248,18 +289,12 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        myVariable = prefs.getString(Name, sName);
+//        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+//        myVariable = prefs.getString(Name, sName);
 
 
-            //Navigation View
-            NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-            mNavigationView.setNavigationItemSelectedListener(this);
-            View header=mNavigationView.getHeaderView(0);
 
-            TextView name = (TextView) header.findViewById(R.id.tUsername);
-            name.setText(myVariable);
-            Toast.makeText(context, myVariable, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(context, myVariable, Toast.LENGTH_SHORT).show();
 
 
     }
@@ -274,42 +309,44 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(Name, sName);
-        editor.apply();
-        editor.commit();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(Name, sName);
-        editor.apply();
-        editor.commit();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putString(Name, sName);
+//        editor.apply();
+//        editor.commit();
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putString(Name, sName);
+//        editor.apply();
+//        editor.commit();
+//    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(Name, sName);
-        editor.apply();
-        editor.commit();
+//        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putString(Name, sName);
+//        editor.apply();
+//        editor.commit();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        prefs = getSharedPreferences(MyPREFERENCES, 0);
-        myVariable = prefs.getString(Name, sName);
+//        prefs = getSharedPreferences(MyPREFERENCES, 0);
+//        myVariable = prefs.getString(Name, sName);
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
 //    @Override
