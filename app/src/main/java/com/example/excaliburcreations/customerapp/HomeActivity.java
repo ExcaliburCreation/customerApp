@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity
     public String currentDateandTime;
     //global variable for firebase obj
     ClassOrder classOrder;
+    ClassStore classStore;
     //to get the particular item position
     ClassOrder itemPos;
 
@@ -63,7 +64,7 @@ public class HomeActivity extends AppCompatActivity
 
     //variables
     public TextView name;
-
+    public TextView storeName;
 
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -122,6 +123,7 @@ public class HomeActivity extends AppCompatActivity
         View header=mNavigationView.getHeaderView(0);
 
         name = (TextView) header.findViewById(R.id.tUsername);
+        storeName = (TextView)header.findViewById(R.id.tStoreName);
 
         //setting current time and date.
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy KK:mm");
@@ -201,12 +203,15 @@ public class HomeActivity extends AppCompatActivity
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 Log.d("showdata", "child added is working");
-                                classOrder = dataSnapshot.getValue(ClassOrder.class);
-                                Toast.makeText(context, classOrder.getConsigneeName(), Toast.LENGTH_SHORT).show();
-                                Log.d("showdata",classOrder.getConsigneeName());
-                                ClassProfileInfo.name = classOrder.getConsigneeName();
-                                name.setText(ClassProfileInfo.name);
-                                Log.d("uservar",ClassProfileInfo.name);
+//                                classOrder = dataSnapshot.getValue(ClassOrder.class);
+//                                Toast.makeText(context, classOrder.getConsigneeName(), Toast.LENGTH_SHORT).show();
+//                                Log.d("showdata",classOrder.getConsigneeName());
+//                                ClassProfileInfo.name = classOrder.getConsigneeName();
+//                                name.setText(ClassProfileInfo.name);
+//                                Log.d("uservar",ClassProfileInfo.name);
+                                classStore = dataSnapshot.getValue(ClassStore.class);
+                                storeName.setText(classStore.getShopName());
+                                name.setText(classStore.getsName());
 
                             }
 
@@ -384,19 +389,34 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id){
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentProfile()).commit();
+                break;
+            case R.id.nav_gallery:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentItems()).commit();
+                break;
+            default:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentProfile()).commit();
         }
+
+//        if (id == R.id.nav_home) {
+//            Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//            getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentItems()).commit();
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
