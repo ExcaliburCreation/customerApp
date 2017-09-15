@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,11 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,15 +39,15 @@ public class HomeActivity extends AppCompatActivity
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mDatabaseReference;
+//    DatabaseReference mDatabaseReference;
     DatabaseReference sDatabaseReference;
-    private ChildEventListener mChildEventListener;
+   // private ChildEventListener mChildEventListener;
     private ChildEventListener sChildEventListener;
-    private AdapterOrder mAdapterOrder;
-    public ListView mListView;
+//    private AdapterOrder mAdapterOrder;
+//    public ListView mListView;
     public String currentDateandTime;
     //global variable for firebase obj
-    ClassOrder classOrder;
+    //ClassOrder classOrder;
     ClassStore classStore;
     //to get the particular item position
     ClassOrder itemPos;
@@ -78,6 +72,12 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //open a fragment by default
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.home_frag, new FragmentItems());
+        tx.commit();
+
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -113,9 +113,9 @@ public class HomeActivity extends AppCompatActivity
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference().child("Orders");
+      //  mDatabaseReference = mFirebaseDatabase.getReference().child("Orders");
        // sDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(authKey);
-        mListView = (ListView) findViewById(R.id.orderListView);
+        //mListView = (ListView) findViewById(R.id.orderListView);
 
         //Navigation View
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -132,59 +132,59 @@ public class HomeActivity extends AppCompatActivity
         //initializing activity textview and its adapter
 
 
-        final List<ClassOrder> classOrders = new ArrayList<>();
-        Log.d("showdata",classOrders.toString());
-        mAdapterOrder = new AdapterOrder(this, R.layout.customorder,classOrders);
-        Log.d("showdata",mAdapterOrder.toString());
-        mListView.setAdapter(mAdapterOrder);
-        Log.d("showdata","data setted");
-
-        //creating a temprory list for items
-        final ArrayList<String> arrayList = new ArrayList<String>();
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
-
-        Log.d("showdata","attaching childeventlistner");
-        if(mChildEventListener == null) {
-            mChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.d("showdata", "child added is working");
-                    classOrder = dataSnapshot.getValue(ClassOrder.class);
-                    mAdapterOrder.add(classOrder);
-
-
-                    //setting temporary lists
-//                    arrayList.add(itemPos.getItem());
-
-
-                    Log.d("showdata", classOrder.toString());
-
-                    mListView.setAdapter(mAdapterOrder);
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-
-            mDatabaseReference.addChildEventListener(mChildEventListener);
-        }
+//        final List<ClassOrder> classOrders = new ArrayList<>();
+//        Log.d("showdata",classOrders.toString());
+//        mAdapterOrder = new AdapterOrder(this, R.layout.customorder,classOrders);
+//        Log.d("showdata",mAdapterOrder.toString());
+//        mListView.setAdapter(mAdapterOrder);
+//        Log.d("showdata","data setted");
+//
+//        //creating a temprory list for items
+//        final ArrayList<String> arrayList = new ArrayList<String>();
+//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList);
+//
+//        Log.d("showdata","attaching childeventlistner");
+//        if(mChildEventListener == null) {
+//            mChildEventListener = new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                    Log.d("showdata", "child added is working");
+//                    classOrder = dataSnapshot.getValue(ClassOrder.class);
+//                    mAdapterOrder.add(classOrder);
+//
+//
+//                    //setting temporary lists
+////                    arrayList.add(itemPos.getItem());
+//
+//
+//                    Log.d("showdata", classOrder.toString());
+//
+//                    mListView.setAdapter(mAdapterOrder);
+//                }
+//
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            };
+//
+//            mDatabaseReference.addChildEventListener(mChildEventListener);
+//        }
 
         //attaching auth listener to get uid
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -249,50 +249,50 @@ public class HomeActivity extends AppCompatActivity
             }
         };
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                classOrder = classOrders.get(position);
-                Log.d("checkingpos",classOrder.toString());
-                Log.d("showdata","attaching childeventlistner");
-
-                            //setting temporary lists
-                            arrayList.add(classOrder.getItem());
-                            Log.d("checkingpos",classOrder.getItem().toString());
-
-
-                            Log.d("showdata", classOrder.toString());
-
-                            mListView.setAdapter(mAdapterOrder);
-
-
-
-                dialog = new Dialog(context);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_layout);
-
-
-                Button dBDismiss = (Button) dialog.findViewById(R.id.bDismiss);
-                Button dBDeclilne = (Button) dialog.findViewById(R.id.bDecline);
-                Button dBGO = (Button) dialog.findViewById(R.id.bGo);
-
-                ListView dListview = (ListView) dialog.findViewById(R.id.dialog_listview);
-                dListview.setAdapter(arrayAdapter);
-
-                dBDismiss.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-
-
-
-            }
-        });
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//
+//                classOrder = classOrders.get(position);
+//                Log.d("checkingpos",classOrder.toString());
+//                Log.d("showdata","attaching childeventlistner");
+//
+//                            //setting temporary lists
+//                            arrayList.add(classOrder.getItem());
+//                            Log.d("checkingpos",classOrder.getItem().toString());
+//
+//
+//                            Log.d("showdata", classOrder.toString());
+//
+//                            mListView.setAdapter(mAdapterOrder);
+//
+//
+//
+//                dialog = new Dialog(context);
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                dialog.setContentView(R.layout.dialog_layout);
+//
+//
+//                Button dBDismiss = (Button) dialog.findViewById(R.id.bDismiss);
+//                Button dBDeclilne = (Button) dialog.findViewById(R.id.bDecline);
+//                Button dBGO = (Button) dialog.findViewById(R.id.bGo);
+//
+//                ListView dListview = (ListView) dialog.findViewById(R.id.dialog_listview);
+//                dListview.setAdapter(arrayAdapter);
+//
+//                dBDismiss.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                dialog.show();
+//
+//
+//
+//            }
+//        });
 
 //        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 //        myVariable = prefs.getString(Name, sName);
@@ -391,13 +391,13 @@ public class HomeActivity extends AppCompatActivity
 
         switch (id){
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentProfile()).commit();
-                break;
-            case R.id.nav_gallery:
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentItems()).commit();
                 break;
-            default:
+            case R.id.nav_gallery:
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentProfile()).commit();
+                break;
+            default:
+                getSupportFragmentManager().beginTransaction().add(R.id.home_frag,new FragmentItems()).commit();
         }
 
 //        if (id == R.id.nav_home) {
