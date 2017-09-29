@@ -8,12 +8,15 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:icon="@drawable/icon_profile"
+            android:title="Profile" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:icon="@drawable/icon_addrider"
+            android:title="Rider" />
+    </group>
+
+        <!--
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
@@ -32,5 +35,6 @@
                 android:title="Send" />
         </menu>
     </item>
+    -->
 
 </menu>
