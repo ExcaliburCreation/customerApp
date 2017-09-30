@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp">
+<ImageView
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/rider_image"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingTop="40dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name :"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact :"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CNIC :"
+                android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtEditRiderName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name :"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:id="@+id/txtEditRiderContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact :"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:id="@+id/txtEditRiderCnic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CNIC :"
+                android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:id="@+id/btn_cancel"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delete"
+        android:id="@+id/btn_delete"/>
+</LinearLayout>
+</LinearLayout>

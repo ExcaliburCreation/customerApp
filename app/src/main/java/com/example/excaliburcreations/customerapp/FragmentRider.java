@@ -1,14 +1,21 @@
 package com.example.excaliburcreations.customerapp;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -33,6 +40,7 @@ public class FragmentRider extends Fragment {
     private ChildEventListener mChildEventListener;
     private FirebaseAuth mFirebaseAuth;
     private ClassRider mClassRider;
+    private Dialog dialog;
 
 
 
@@ -99,6 +107,32 @@ public class FragmentRider extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityRider_reg.class);
                 startActivity(intent);
+            }
+        });
+
+        //adding dialog
+        mRiderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_riderlayout);
+
+                TextView name = (TextView) dialog.findViewById(R.id.txtEditRiderName);
+                TextView contact = (TextView) dialog.findViewById(R.id.txtEditRiderContact);
+                TextView cnic = (TextView) dialog.findViewById(R.id.txtEditRiderCnic);
+                ImageView imageView = (ImageView) dialog.findViewById(R.id.rider_image);
+
+                Log.d("dialogcheck","name: "+ mAdapterRider.getItem(position).getRiderName());
+                name.setText(mAdapterRider.getItem(position).getRiderName());
+                contact.setText(mAdapterRider.getItem(position).getRiderContact());
+                cnic.setText(mAdapterRider.getItem(position).getRiderCnic());
+                dialog.show();
+                Window window = dialog.getWindow();
+                window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+
             }
         });
 
