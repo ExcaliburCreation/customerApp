@@ -393,8 +393,11 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentItems()).commit();
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentProfile()).commit();
+                break;
+            case R.id.nav_rider:
+                getSupportFragmentManager().beginTransaction().replace(R.id.home_frag,new FragmentRider()).commit();
                 break;
             default:
                 getSupportFragmentManager().beginTransaction().add(R.id.home_frag,new FragmentItems()).commit();

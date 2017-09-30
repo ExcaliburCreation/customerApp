@@ -8,6 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
 
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -48,15 +49,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBdj8L3QqDOwvBw00TZnfdqjR9jg4O1V6w" />
 
-
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".SigninActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".SigninActivity" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".ActivityRider_reg"></activity>
     </application>
 
 </manifest>

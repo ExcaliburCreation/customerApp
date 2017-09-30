@@ -2,12 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rider_frag"
     tools:context="com.example.excaliburcreations.customerapp.FragmentRider">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:id="@+id/listRider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingLeft="20dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="55dp"
+                android:id="@+id/btnAddRider"
+                android:background="@drawable/icon_newrider"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>
