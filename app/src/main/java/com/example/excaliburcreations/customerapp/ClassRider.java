@@ -9,15 +9,17 @@ public class ClassRider {
     String riderContact;
     String riderCnic;
     String riderImageUrl;
+    String riderStatus;
 
     public ClassRider(){
 
     }
-    public ClassRider(String riderName, String riderContact, String riderCnic, String riderImageUrl){
+    public ClassRider(String riderName, String riderContact, String riderCnic, String riderImageUrl,String riderStatus){
         this.riderName = riderName;
         this.riderContact = riderContact;
         this.riderCnic = riderCnic;
         this.riderImageUrl = riderImageUrl;
+        this.riderStatus = riderStatus;
     }
 
     public String getRiderName() {
@@ -34,5 +36,9 @@ public class ClassRider {
 
     public String getRiderImageUrl() {
         return riderImageUrl;
+    }
+
+    public String getRiderStatus() {
+        return riderStatus;
     }
 }

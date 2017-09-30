@@ -8,6 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -15,6 +26,14 @@ import android.widget.Button;
  */
 public class FragmentRider extends Fragment {
     Button btnAdd;
+    ListView mRiderList;
+    AdapterRider mAdapterRider;
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference mDatabaseReference;
+    private ChildEventListener mChildEventListener;
+    private FirebaseAuth mFirebaseAuth;
+    private ClassRider mClassRider;
+
 
 
     public FragmentRider() {
@@ -27,6 +46,52 @@ public class FragmentRider extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_rider, container, false);
+
+        //firebase
+        // Inflate the layout for this fragment
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid()).child("Riders");
+
+        //add childlistener
+        if(mChildEventListener == null){
+            mChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mClassRider = dataSnapshot.getValue(ClassRider.class);
+                    mAdapterRider.add(mClassRider);
+
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+            mDatabaseReference.addChildEventListener(mChildEventListener);
+        }
+        mRiderList = (ListView) view.findViewById(R.id.listRider);
+
+        List<ClassRider> classRiders = new ArrayList<>();
+        mAdapterRider = new AdapterRider(getActivity(),R.layout.custom_rider,classRiders);
+        mRiderList.setAdapter(mAdapterRider);
+
+
 
         btnAdd = (Button) view.findViewById(R.id.btnAddRider);
         btnAdd.setOnClickListener(new View.OnClickListener() {
