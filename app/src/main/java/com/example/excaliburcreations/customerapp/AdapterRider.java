@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,11 +30,13 @@ public class AdapterRider extends ArrayAdapter<ClassRider> {
         TextView name = (TextView) convertView.findViewById(R.id.txtRiderName);
         TextView contact = (TextView) convertView.findViewById(R.id.txtRiderContact);
         TextView status = (TextView) convertView.findViewById(R.id.txtRiderStatus);
+        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.rider_image);
 
         ClassRider classRider = getItem(position);
         name.setText(classRider.getRiderName());
         contact.setText(classRider.getRiderContact());
         status.setText(classRider.getRiderStatus());
+
 
         return convertView;
     }

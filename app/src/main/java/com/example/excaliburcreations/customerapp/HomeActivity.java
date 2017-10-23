@@ -196,7 +196,8 @@ public class HomeActivity extends AppCompatActivity
                     //user is signed in
                     Toast.makeText(context, "user is signed in", Toast.LENGTH_SHORT).show();
                     Log.d("myuserid",mFirebaseAuth.getCurrentUser().getUid());
-                    sDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid());
+
+                    sDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid()).child("Profile");
 
                     if(sChildEventListener == null) {
                         sChildEventListener = new ChildEventListener() {
@@ -209,8 +210,11 @@ public class HomeActivity extends AppCompatActivity
 //                                ClassProfileInfo.name = classOrder.getConsigneeName();
 //                                name.setText(ClassProfileInfo.name);
 //                                Log.d("uservar",ClassProfileInfo.name);
+
+
                                 classStore = dataSnapshot.getValue(ClassStore.class);
                                 storeName.setText(classStore.getShopName());
+                                Log.d("checkname","shopname :"+ classStore.getShopName());
                                 name.setText(classStore.getsName());
 
                             }

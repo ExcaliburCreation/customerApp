@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -121,12 +122,23 @@ public class FragmentRider extends Fragment {
                 TextView name = (TextView) dialog.findViewById(R.id.txtEditRiderName);
                 TextView contact = (TextView) dialog.findViewById(R.id.txtEditRiderContact);
                 TextView cnic = (TextView) dialog.findViewById(R.id.txtEditRiderCnic);
-                ImageView imageView = (ImageView) dialog.findViewById(R.id.rider_image);
+                ImageView photoImageView = (ImageView) dialog.findViewById(R.id.rider_image);
+                Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
 
                 Log.d("dialogcheck","name: "+ mAdapterRider.getItem(position).getRiderName());
                 name.setText(mAdapterRider.getItem(position).getRiderName());
                 contact.setText(mAdapterRider.getItem(position).getRiderContact());
                 cnic.setText(mAdapterRider.getItem(position).getRiderCnic());
+                Glide.with(photoImageView.getContext())
+                        .load(mAdapterRider.getItem(position).getRiderImageUrl())
+                        .into(photoImageView);
                 dialog.show();
                 Window window = dialog.getWindow();
                 window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
