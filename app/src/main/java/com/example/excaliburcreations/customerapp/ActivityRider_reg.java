@@ -97,7 +97,9 @@ public class ActivityRider_reg extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("urlcheck",downloadUrl.toString());
                 mClassRider = new ClassRider(editName.getText().toString(), editContact.getText().toString(), editCnic.getText().toString(),downloadUrl.toString(),"Idle");
+                Log.d("urlcheck",downloadUrl.toString());
                 mDatabaseReference.push().setValue(mClassRider);
 
                 Intent intent = new Intent(ActivityRider_reg.this, HomeActivity.class);

@@ -16,8 +16,6 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -72,47 +70,49 @@ public class FragmentItems extends Fragment {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,arrayList);
 
         Log.d("showdata","attaching childeventlistner");
-        if(mChildEventListener == null) {
-            mChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Log.d("showdata", "child added is working");
-                    classOrder = dataSnapshot.getValue(ClassOrder.class);
-                    mAdapterOrder.add(classOrder);
-
-
-                    //setting temporary lists
-//                    arrayList.add(itemPos.getItem());
-
-
-                    Log.d("showdata", classOrder.toString());
-
-                    mListView.setAdapter(mAdapterOrder);
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-
-            mDatabaseReference.addChildEventListener(mChildEventListener);
-        }
+//        if(mChildEventListener == null) {
+//            mChildEventListener = new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                    Log.d("showdata", "child added is working");
+//                    classOrder = dataSnapshot.getValue(ClassOrder.class);
+//                    Log.d("ordercheck",classOrder.toString());
+//
+//                    mAdapterOrder.add(classOrder);
+//
+//
+//                    //setting temporary lists
+////                    arrayList.add(itemPos.getItem());
+//
+//
+//                    Log.d("showdata", classOrder.toString());
+//
+//                    mListView.setAdapter(mAdapterOrder);
+//                }
+//
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            };
+//
+//            mDatabaseReference.addChildEventListener(mChildEventListener);
+//        }
 
         //listview click items
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
