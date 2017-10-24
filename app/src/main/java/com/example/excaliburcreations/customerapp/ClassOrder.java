@@ -17,10 +17,16 @@ public class ClassOrder {
     String amount;
     String comments;
 
+    //othere variables
+    String datetime;
+    String total;
+    String basket;
+
 
     public ClassOrder(){
 
     }
+
 
     public ClassOrder(String city, String area, String time, String address, String contactno, String status,
                       String item, String consigneeName, String payMethod, String amount, String comments ){
@@ -36,6 +42,12 @@ public class ClassOrder {
         this.amount = amount;
         this.comments = comments;
 
+    }
+    //other constructor
+    public ClassOrder(String datetime, String total, String basket){
+        this.datetime = datetime;
+        this.total = total;
+        this.basket = basket;
     }
 
     public String getContactno() {
@@ -82,5 +94,17 @@ public class ClassOrder {
         return comments;
     }
 
+//other getters
 
+    public String getBasket() {
+        return basket;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public String getTotal() {
+        return total;
+    }
 }
