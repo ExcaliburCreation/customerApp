@@ -27,10 +27,12 @@ public class AdapterOrder extends ArrayAdapter<ClassOrder> {
         }
         TextView tOrderArea = (TextView) convertView.findViewById(R.id.tArea);
         TextView tOrderTime = (TextView) convertView.findViewById(R.id.tTime);
+        TextView tOrderTotal = (TextView) convertView.findViewById(R.id.tTotal);
         ClassOrder classOrder = getItem(position);
 
-        tOrderArea.setText(classOrder.getContactno());
-        tOrderTime.setText(classOrder.getTime());
+        tOrderArea.setText("");
+        tOrderTime.setText("");
+        tOrderTotal.setText(classOrder.getTotal());
         return convertView;
     }
 }

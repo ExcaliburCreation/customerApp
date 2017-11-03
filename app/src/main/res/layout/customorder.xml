@@ -24,6 +24,7 @@
         android:id="@+id/tTime"/>
     </LinearLayout>
     <RelativeLayout
+        android:id="@+id/imageLay"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
@@ -31,6 +32,18 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ordericon"/>
+        android:background="@drawable/ordericon"
+        android:id="@+id/dImageIcon"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/imageLay"
+        android:paddingRight="20dp">
+        <TextView
+            android:id="@+id/tTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="total"/>
     </RelativeLayout>
 </RelativeLayout>

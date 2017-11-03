@@ -26,7 +26,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ordericon"
-        android:label="Tijarah"
+        android:label="Pocket Cart"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">

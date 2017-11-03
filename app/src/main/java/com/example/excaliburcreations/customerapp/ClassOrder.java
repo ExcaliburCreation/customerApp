@@ -22,9 +22,32 @@ public class ClassOrder {
     String total;
     String basket;
 
+    //items
+    String category;
+    String count;
+    String description;
+    String imageUrl;
+    String name;
+    String price;
+    String quantity;
+    String unit;
+    private int id;
+    private String isAdded;
+
 
     public ClassOrder(){
 
+    }
+    //items Contructor
+    public ClassOrder(String category, String count, String description, String imageUrl, String name, String price, String quantity, String unit){
+        this.category = category;
+        this.count = count;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.unit = unit;
     }
 
 
@@ -48,6 +71,9 @@ public class ClassOrder {
         this.datetime = datetime;
         this.total = total;
         this.basket = basket;
+    }
+    public ClassOrder(String total){
+        this.total = total;
     }
 
     public String getContactno() {
@@ -106,5 +132,53 @@ public class ClassOrder {
 
     public String getTotal() {
         return total;
+    }
+
+
+    //items getter
+    public String getCategory() {
+        return category;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                ", id='" + id + '\'' +
+                ", Name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", count=" + count +
+                ", category='" + category + '\'' +
+                ", isAdded=" + isAdded +
+                '}';
     }
 }
