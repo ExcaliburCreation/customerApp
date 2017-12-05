@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +44,17 @@ public class FragmentItems extends Fragment {
     public String currentDateandTime;
     //global variable for firebase obj
     ClassOrder classOrder;
+    ClassOrder classOrder1;
+
     Dialog dialog;
 
 
     public FragmentItems() {
         // Required empty public constructor
+
     }
+
+
 
 
     @Override
@@ -67,6 +73,10 @@ public class FragmentItems extends Fragment {
         final List<ClassOrder> classOrders = new ArrayList<>();
         Log.d("showdata",classOrders.toString());
         mAdapterOrder = new AdapterOrder(getActivity(), R.layout.customorder,classOrders);
+
+
+        List<ClassOrder> classOrders1 = new ArrayList<>();
+
         Log.d("showdata",mAdapterOrder.toString());
         mListView.setAdapter(mAdapterOrder);
         Log.d("showdata","data setted");
@@ -85,30 +95,60 @@ public class FragmentItems extends Fragment {
 //                    classOrder = dataSnapshot.getValue(ClassOrder.class);
 //
 //                    Log.d("LL",dataSnapshot.toString());
-
-                    for(DataSnapshot cItems : dataSnapshot.getChildren()){
-                        ClassOrder classOrder1 = cItems.getValue(ClassOrder.class);
-                    }
-                    String mBasket = dataSnapshot.child("basket").getValue().toString();
-                    String items = dataSnapshot.child("basket").child("items").getValue().toString();
                     classOrder = new ClassOrder(dataSnapshot.child("basket").child("total").getValue().toString());
+//                    ClassOrder classOrder1 = new ClassOrder();
+//
+//                    classOrder1 = new ClassOrder("","","",dataSnapshot.child("basket").child("items").getValue().toString());
+//
+//                    Log.d("testItem", classOrder1.getItemKey());
+//                    Log.d("testItem1", classOrder1.toString());
 
-                   // ClassOrder classOrder1 = dataSnapshot.child("basket").child("items").getValue(ClassOrder.class);
+                    //ClassOrder classOrderl = dataSnapshot.child("basket").child("items").getValue(ClassOrder.class);
+
+                    GenericTypeIndicator<ArrayList<ClassOrder>> t = new GenericTypeIndicator<ArrayList<ClassOrder>>() {};
+                    ArrayList<ClassOrder> yourStringArray = dataSnapshot.child("basket").child("items").getValue(t);
+
+                    classOrder1 = new ClassOrder();
+                    classOrder1 = new ClassOrder("","","",yourStringArray.get(0).getName(),"","");
+
+
+                   // Toast.makeText(getContext(),yourStringArray.get(0).getName(),Toast.LENGTH_LONG).show();
+
+
+                    String itemKey = dataSnapshot.child("basket").child("items").getKey();
+                    String itemKey1 = dataSnapshot.child("basket").child("items").child("0").getKey();
+                    String itemKey2 = dataSnapshot.child("basket").child("items").getChildren().toString();
 
 
 
-                    Log.d("checkbasket", mBasket);
-                    Log.d("checkitems", items);
+//                    ArrayList<String> items = new ArrayList<>();
+//                    items.add(itemKey);
+
+                    //Log.d("testItem",items.toArray().toString());
+                    Log.d("testItem1",itemKey1.toString());
+                    Log.d("testItem2", itemKey2.toString());
+                    Log.d("testItem3", yourStringArray.toString());
+                    Log.d("testItem4", yourStringArray.get(0).toString());
+                    Log.d("testItem5", classOrder1.getName());
+                    Log.d("testItem6", classOrder1.toString());
+                    Log.d("testItem7", t.toString());
+//
+//
+//
+//
+
+
 
 
                     Log.d("Basket",dataSnapshot.child("basket").toString());
                     Log.d("Items",dataSnapshot.child("basket").child("items").toString());
-                    Log.d("Items",dataSnapshot.child("basket").child("items").child("0").toString());
+                    Log.d("Items1",dataSnapshot.child("basket").child("items").child("0").toString());
                     Log.d("Total",dataSnapshot.child("basket").child("total").toString());
 
 
 
                     mAdapterOrder.add(classOrder);
+                    mAdapterOrder.add(classOrder1);
 
 
                     //setting temporary lists
@@ -254,5 +294,6 @@ public class FragmentItems extends Fragment {
         return view;
 
     }
-
 }
+
+

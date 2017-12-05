@@ -24,28 +24,40 @@ public class ClassOrder {
 
     //items
     String category;
-    String count;
+  //  String count;
     String description;
     String imageUrl;
     String name;
-    String price;
+    //String price;
     String quantity;
     String unit;
-    private int id;
-    private String isAdded;
+    //private int id;
+   // private String isAdded;
+    String itemKey;
+
 
 
     public ClassOrder(){
 
     }
     //items Contructor
-    public ClassOrder(String category, String count, String description, String imageUrl, String name, String price, String quantity, String unit){
+//    public ClassOrder(String category, String count, String description, String imageUrl, String name, String price, String quantity, String unit){
+//        this.category = category;
+//        this.count = count;
+//        this.description = description;
+//        this.imageUrl = imageUrl;
+//        this.name = name;
+//        this.price = price;
+//        this.quantity = quantity;
+//        this.unit = unit;
+//    }
+    public ClassOrder(String category, String description, String imageUrl, String name, String quantity, String unit){
         this.category = category;
-        this.count = count;
+
         this.description = description;
         this.imageUrl = imageUrl;
         this.name = name;
-        this.price = price;
+
         this.quantity = quantity;
         this.unit = unit;
     }
@@ -71,7 +83,17 @@ public class ClassOrder {
         this.datetime = datetime;
         this.total = total;
         this.basket = basket;
+
     }
+    public ClassOrder(String datetime, String total, String basket, String itemKey){
+        this.datetime = datetime;
+        this.total = total;
+        this.basket = basket;
+        this.itemKey = itemKey;
+
+    }
+
+
     public ClassOrder(String total){
         this.total = total;
     }
@@ -134,15 +156,18 @@ public class ClassOrder {
         return total;
     }
 
+    public String getItemKey() {
+        return itemKey;
+    }
 
     //items getter
     public String getCategory() {
         return category;
     }
 
-    public String getCount() {
-        return count;
-    }
+    //public String getCount() {
+//        return count;
+//    }
 
     public String getDescription() {
         return description;
@@ -156,9 +181,9 @@ public class ClassOrder {
         return name;
     }
 
-    public String getPrice() {
-        return price;
-    }
+//    public String getPrice() {
+//        return price;
+//    }
 
     public String getQuantity() {
         return quantity;
@@ -168,17 +193,5 @@ public class ClassOrder {
         return unit;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                ", id='" + id + '\'' +
-                ", Name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", count=" + count +
-                ", category='" + category + '\'' +
-                ", isAdded=" + isAdded +
-                '}';
-    }
+
 }
