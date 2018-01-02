@@ -1,5 +1,7 @@
 package com.example.excaliburcreations.customerapp;
 
+import java.util.ArrayList;
+
 /**
  * Created by dell pc on 29-Jul-17.
  */
@@ -8,14 +10,14 @@ public class ClassOrder {
     String city;
     String area;
     String time;
-    String address;
-    String contactno;
+//    String address;
+//    String contactno;
     String status;
     String item ;
-    String consigneeName;
-    String payMethod;
+//    String consigneeName;
+//    String payMethod;
     String amount;
-    String comments;
+//    String comments;
 
     //othere variables
     String datetime;
@@ -27,13 +29,21 @@ public class ClassOrder {
   //  String count;
     String description;
     String imageUrl;
-    String name;
+//    String name;
     //String price;
-    String quantity;
+//    String quantity;
     String unit;
     //private int id;
    // private String isAdded;
     String itemKey;
+    String consigneeName;
+    String payMethod;
+    String address;
+    String contactno;
+    String comments;
+    String name;
+    String quantity;
+    private  ArrayList<String> yourlist;
 
 
 
@@ -61,6 +71,16 @@ public class ClassOrder {
         this.quantity = quantity;
         this.unit = unit;
     }
+    public ClassOrder(String name, String quantity){
+        this.name = name;
+        this.quantity = quantity;
+    }
+    public ClassOrder(String consigneeName, String contactno, String payMethod, String datetime){
+        this.consigneeName = consigneeName;
+        this.contactno = contactno;
+        this.payMethod = payMethod;
+        this.datetime = datetime;
+    }
 
 
     public ClassOrder(String city, String area, String time, String address, String contactno, String status,
@@ -76,8 +96,9 @@ public class ClassOrder {
         this.payMethod = payMethod;
         this.amount = amount;
         this.comments = comments;
-
     }
+
+
     //other constructor
     public ClassOrder(String datetime, String total, String basket){
         this.datetime = datetime;
@@ -85,13 +106,13 @@ public class ClassOrder {
         this.basket = basket;
 
     }
-    public ClassOrder(String datetime, String total, String basket, String itemKey){
-        this.datetime = datetime;
-        this.total = total;
-        this.basket = basket;
-        this.itemKey = itemKey;
-
-    }
+//    public ClassOrder(String datetime, String total, String basket, String itemKey){
+//        this.datetime = datetime;
+//        this.total = total;
+//        this.basket = basket;
+//        this.itemKey = itemKey;
+//
+//    }
 
 
     public ClassOrder(String total){
@@ -191,6 +212,10 @@ public class ClassOrder {
 
     public String getUnit() {
         return unit;
+    }
+
+    public ArrayList<String> getYourlist() {
+        return yourlist;
     }
 
 

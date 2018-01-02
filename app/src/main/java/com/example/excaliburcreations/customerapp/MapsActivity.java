@@ -41,6 +41,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -73,11 +75,25 @@ public class MapsActivity extends AppCompatActivity implements Serializable, OnM
     private EditText editTextArea;
     private Button btnContinue;
 
+    //entry point of a firebase
+    private FirebaseDatabase mFirebaseDatabase;
+    //referencing a specific database
+    private DatabaseReference mDatabaseReference;
+
+    Geocoder geocoder;
+    List<Address> addresses;
+
+    String Area;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getSupportActionBar().setTitle("Location");
+
+        //main access point of our database
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("AccountRequest");
 
         editTextCity = (EditText) findViewById(R.id.editTextCity);
         editTextArea = (EditText) findViewById(R.id.editTextArea);
@@ -96,8 +112,31 @@ public class MapsActivity extends AppCompatActivity implements Serializable, OnM
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent1 = getIntent();
+                String compName = intent1.getStringExtra("compName");
+                String perName = intent1.getStringExtra("perName");
+                String perDes = intent1.getStringExtra("perDes");
+                String busDes = intent1.getStringExtra("busDes");
+                String address = intent1.getStringExtra("address");
+                String cellNo = intent1.getStringExtra("cellNo");
+                String city = intent1.getStringExtra("city");
+                String time = intent1.getStringExtra("time");
+                String comments = intent1.getStringExtra("comments");
+                String country = intent1.getStringExtra("country");
+
+
+                Log.d("location3", "longititude: "+ addresses.get(0).getLongitude());
+                Log.d("location3", "latititude: "+ addresses.get(0).getLatitude());
+
+
+                ClassUserInfo classUserInfo = new ClassUserInfo(compName,perName,
+                                                perDes,busDes,
+                                                cellNo,city,time,
+                                                comments,country,address,addresses.get(0).getLongitude(),addresses.get(0).getLatitude());
+                            mDatabaseReference.push().setValue(classUserInfo);
+
                 String authKey = getIntent().getStringExtra("username");
-                Intent intent = new Intent(MapsActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MapsActivity.this, SigninActivity.class);
                 //intent.putExtra("username",authKey);
                 startActivity(intent);
             }
@@ -261,17 +300,26 @@ public class MapsActivity extends AppCompatActivity implements Serializable, OnM
                             break;
                         }
                     }
-                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+                    geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
                     try {
 
 
-                        List<Address> addresses = new ArrayList<Address>();
+                        addresses = new ArrayList<Address>();
                          addresses = geocoder.getFromLocation(mLikelyPlaceLatLngs[0].latitude, mLikelyPlaceLatLngs[0].longitude, 1);
 
                         Log.d("geo", addresses.get(0).toString());
 
                         editTextCity.setText(addresses.get(0).getAddressLine(1));
+//                        Log.d("location1",addresses.get(0).getAddressLine(1));
+
+
+                        addresses.get(0).getLatitude();
                         editTextArea.setText(addresses.get(0).getAddressLine(0));
+                        Log.d("location2",addresses.get(0).getAddressLine(0));
+                        Log.d("location2","adress: "+ addresses.toString());
+                        Log.d("location2","geocoder: "+ geocoder.toString());
+                        Log.d("location2", "longititude: "+ addresses.get(0).getLongitude());
+                        Log.d("location2", "latititude: "+ addresses.get(0).getLatitude());
 
                         btnContinue.setEnabled(true);
                     } catch (IOException e) {

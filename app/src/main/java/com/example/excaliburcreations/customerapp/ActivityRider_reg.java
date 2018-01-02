@@ -63,7 +63,6 @@ public class ActivityRider_reg extends AppCompatActivity {
         mDatabaseReference = mFirebaseDatabase.getReference().child("Shopkeepers").child(mFirebaseAuth.getCurrentUser().getUid()).child("Riders");
 
 
-
 //        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 //            @Override
 //            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

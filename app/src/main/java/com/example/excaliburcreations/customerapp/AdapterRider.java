@@ -38,6 +38,8 @@ public class AdapterRider extends ArrayAdapter<ClassRider> {
         status.setText(classRider.getRiderStatus());
 
 
+
+
         return convertView;
     }
 }

@@ -15,6 +15,8 @@ public class ClassUserInfo {
     String comments;
     String country;
     String address;
+    double log;
+    double lat;
 
 
 
@@ -30,6 +32,29 @@ public class ClassUserInfo {
         this.comments = comments;
         this.country = country;
         this.address = address;
+    }
+    public ClassUserInfo( String companyName,String personName,String personDes,String businessDesp,String cellNo,
+                          String city,String time,String comments,String country,String address, double log, double lat){
+        this.companyName = companyName;
+        this.personName = personName;
+        this.personDes  = personDes;
+        this.businessDesp = businessDesp;
+        this.cellNo = cellNo;
+        this.city = city;
+        this.time = time;
+        this.comments = comments;
+        this.country = country;
+        this.address = address;
+        this.log = log;
+        this.lat = lat;
+    }
+
+    public double getLog() {
+        return log;
+    }
+
+    public double getLat() {
+        return lat;
     }
 
     public String getCity() {

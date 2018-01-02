@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:id="@+id/rc_image"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rc_image"
+        android:text="Name"
+        android:id="@+id/rc_name"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rc_name"
+        android:text="Contact no"
+        android:id="@+id/rc_contact"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rc_contact"
+        android:text="state"
+        android:id="@+id/rc_state"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rc_state"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rc_message"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rc_button"
+        android:text="go"
+        android:layout_below="@id/rc_state"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+</RelativeLayout>

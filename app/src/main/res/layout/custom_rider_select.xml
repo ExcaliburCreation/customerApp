@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:id="@+id/r_image"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r_image"
+        android:text="Name"
+        android:id="@+id/r_name"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r_name"
+        android:text="Contact no"
+        android:id="@+id/r_contact"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r_contact"
+        android:text="state"
+        android:id="@+id/r_state"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
